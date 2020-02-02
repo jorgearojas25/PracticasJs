@@ -102,9 +102,4 @@ const EjecutarJuego = () => {
   EjericioJuegoVehiculos(Number(prompt("Ingresa la posicion en X")),Number(prompt("Ingresa la posicion en y")),pistaV);
 }
 
-EjecutarJuego();
-//Estadisticas del vehiculo(tipo seleccionar) : Tipo de vehiulo
-//Tunear el vehiculo()
-//Elegir el personaje()
-//Escoger la pista()
-//Salir de los limietes(posicionx, posicion y, pista?) : salioCampo : boolean || tiempoPenitencia : int 
+//EjecutarJuego();
