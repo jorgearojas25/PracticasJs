@@ -1,5 +1,4 @@
 let result = 0;
-let edades = [];
 let mayoresEdad = 0;
 
 const EjercicioSuma1 = () => {
