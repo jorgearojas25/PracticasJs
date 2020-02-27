@@ -266,7 +266,7 @@ class usuario {
   }
   isAdult = () => {
     return Number(this.edad) > 18;
-  }
+  };
   fullName = () => {
     return `${this.name} ${this.lastName}`;
   };
@@ -289,35 +289,194 @@ const createUser = () => {
   );
 };
 
-class dog{
-  constructor(race, name, weight, age){
-    this.race = race,
-    this.name = name,
-    this.weight = weight,
-    this.age = age
+class dog {
+  constructor(race, name, weight, age) {
+    (this.race = race),
+      (this.name = name),
+      (this.weight = weight),
+      (this.age = age);
   }
 }
 
 const myDogs = [];
 
-const getDataDog = (dog) => {
-  return console.log(`El perro de raza ${dog.race} se llama ${dog.name} pesa ${dog.weight}kg y tiene ${dog.age} años`);
-}
+const getDataDog = dog => {
+  return console.log(
+    `El perro de raza ${dog.race} se llama ${dog.name} pesa ${dog.weight}kg y tiene ${dog.age} años`
+  );
+};
 
 const ejericioPerros = () => {
-  let race = '';
+  let race = "";
   do {
-    race = prompt('Ingresa la raza del perro');
-    if(race.toLocaleLowerCase() !== 'stop'){
-      name = prompt('Ingresa el nombre del perro');
-      weight = prompt('Ingresa el peso del perro');
-      age = prompt('Ingresa la edad del perro');
+    race = prompt("Ingresa la raza del perro");
+    if (race.toLocaleLowerCase() !== "stop") {
+      name = prompt("Ingresa el nombre del perro");
+      weight = prompt("Ingresa el peso del perro");
+      age = prompt("Ingresa la edad del perro");
       myDogs.unshift(new dog(race, name, weight, age));
     }
+  } while (race.toLocaleLowerCase() !== "stop");
+  alert("Mira la consola");
+  myDogs.map(dog => getDataDog(dog));
+};
 
-  } while (race.toLocaleLowerCase() !== 'stop');
-  alert('Mira la consola');
-  myDogs.map(dog =>getDataDog(dog))
+const isPrime = num => {
+  for (let i = 2, s = Math.sqrt(num); i <= s; i++)
+    if (num % i === 0) return false;
+  return num > 1;
+};
+
+const factorial = num => {
+  if (num === 1) {
+    return num;
+  } else if (num === 0) {
+    return 1;
+  } else if (num < 0) {
+    return "No se puede tener el factorial de un numero negatvo";
+  } else {
+    return num * factorial(num - 1);
+  }
+};
+
+const calc = (num, callback) => {
+  console.log(
+    `Hola calc \nEl cuadrado del numero ${num} es: ${Math.pow(num, 2)} 
+    y ${isPrime(num) ? "es primo" : "no es primo"}`
+  );
+  return callback(num);
+};
+
+const EjecutarEjercicioCallback = () => {
+  calc(Number(prompt("Ingrese un numero:")), n => {
+    console.log(
+      `Hola callback, \nla raiz cuadrada de ${n} es: ${Math.sqrt(
+        n
+      )} \nsu factoria es ${factorial(n)}`
+    );
+  });
+};
+
+const myBrandPromise = () => {
+  console.log("wait");
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("exitoso");
+    }, 2000);
+  });
+};
+
+const myBrandRejectPromise = () => {
+  console.log("wait");
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject("error");
+    }, 1000);
+  });
+};
+
+const myPromise = number => {
+  return new Promise((resolve, reject) => {
+    if (number % 2 === 0) {
+      resolve(`El numero ${number} es par`);
+    } else {
+      reject(`El numero ${number} es impar`);
+    }
+  });
+};
+
+const EjercicioPromesa1 = () => {
+  Promise.race([Promise1(), Promise2()])
+    .then(data => {
+      console.log(data);
+    })
+    .catch(e => {
+      console.error(e);
+    });
+
+  // myPromise(Math.floor(Math.random() * 101)).then(data => {
+  //   console.log(`Resultado: ${data}`);
+  // }).catch(e => {
+  //   console.log(`[Promesa MyBrandReject] Error: ${e}`)
+  // });
+};
+
+const Promise1 = () => {
+  let time = Math.floor(Math.random() * 1001);
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(`Promesa 1 se ejecuto en ${time}`);
+    }, time);
+  });
+};
+
+const Promise2 = () => {
+  let time = Math.floor(Math.random() * 1001);
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(`Promesa 2 se ejecuto en ${time}`);
+    }, time);
+  });
+};
+
+const GetUsersPromise = () =>{
+  return new Promise((resolve, reject) => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(data => {
+        data.json().then(data => {
+          data.map(d => console.log(d.name))
+        })
+      })
+      .catch(e => {
+        console.error(`[Get users promise] ${e}`)
+      })
+  })
 }
 
-ejericioPerros();
+
+const GetUsers = async () => {
+    let response = "";
+    try {
+      response = await fetch('https://jsonplaceholder.typicode.com/users')
+      data = await response.json()
+      for (const d of data) {
+        console.log(d.name)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+    return response;
+
+}
+
+const GetUsersGithub = async (users) => {
+  let response = [];
+  try {
+    for (const user of users) {
+      let dataUser = await fetch('https://api.github.com/users/'+user)
+      let jsonUser = await dataUser.json()
+      if(jsonUser.message != 'Not Found'){
+        response.push(jsonUser);
+      }
+    }
+  }catch (error) {
+    console.log(`[Get users github] No se encontro el usuario ${error}`)
+  }
+  return response;
+}
+
+const GetUsersGithubData = async () => {
+  
+  let users = ['jorgearojas25', 'damartinezrus', 'rembrandtsx', 'jfmt01', 'chrisdev12']
+  let response = await GetUsersGithub(users)
+  for (const user of response) {
+    console.log(user.login)
+    fetch(user.followers_url).then(data => data.json().then(data => console.log(data)))
+  }
+}
+
+
+
+
+
+
