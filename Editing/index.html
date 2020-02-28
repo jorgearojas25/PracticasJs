@@ -47,5 +47,19 @@
         <a href="/"><p>Ver Mas</p> </a>
       </div>
     </section>
+    <script>
+      let elem = document.getElementsByClassName("articleTitle")[0];
+      elem.innerHTML = `<h1>Soy un texto modificado</h1>`;
+
+      let navigation = document.getElementsByTagName("ul")[0];
+      let child = document.createElement("li");
+      child.className = "navItem";
+      navigation.appendChild(child);
+      navigation.lastElementChild.innerHTML = `<a href="">|Item 5 </a>`;
+      console.log(child);
+      console.log(navigation);
+
+      //navigation.innerHTML += `<li class="navItem"><a href="">|Item 5 </a></li>`;
+    </script>
   </body>
 </html>

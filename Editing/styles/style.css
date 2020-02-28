@@ -11,6 +11,10 @@ body {
   width: 100vw;
 }
 
+.navItem a {
+  color: red;
+}
+
 header {
   margin: 2.5%;
   padding: 0.5% 2% 0.5% 2%;
